@@ -5,11 +5,15 @@ import feedparser
 
 app = Flask(__name__)
 
-BBC_FEED = "http://feeds.bbci.co.uk/news/rss.xml"
+RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
+             '163': 'http://news.163.com/special/00011K6L/rss_newstop.xml',
+             'chinadaily': 'http://www.chinadaily.com.cn/rss_c/kjhlw.xml',
+             'iol': 'http://www.iol.co.za/cmlink/1.640'}
 
 @app.route("/")
-def get_news():
-    feed = feedparser.parse(BBC_FEED)
+@app.route("/<publication>")
+def get_news(publication = 'bbc'):
+    feed = feedparser.parse(RSS_FEEDS[publication])
     first_article = feed['entries'][0]
     return """<html>
     <body>
@@ -22,4 +26,4 @@ def get_news():
     get("published"), first_article.get("summary"))
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=3000, debug=True)
