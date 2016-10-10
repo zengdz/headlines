@@ -13,7 +13,7 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
              'engadget': 'https://www.engadget.com/rss.xml'}
 
 DEFAULTS = {'publication':'bbc',
-            'city':'London,UK'
+            'city':'London,UK',
             'currency_from':'GBP',
             'currency_to':'USD'}# default setting when none input
 
@@ -44,7 +44,7 @@ def home():
     return render_template("home.html", articles = articles, weather=weather,
                            currency_from=currency_from, currency_to=currency_to, rate=rate)
 
-def get_rates(frm, to):
+def get_rate(frm, to):
     all_currency = urllib2.urlopen(CURRENCY_URL).read()
     parsed = json.loads(all_currency).get('rates')
     frm_rate = parsed.get(frm.upper())
