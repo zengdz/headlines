@@ -46,7 +46,9 @@ def get_weather(query):
     weather = None
     if parsed.get("weather"):
         weather = {"description":parsed["weather"][0]["description"],
-                    "temperature":parsed["main"]["temp"],"city":parsed["name"]}
+                   "temperature":parsed["main"]["temp"],
+                   "city":parsed["name"],
+                   "country":parsed['sys']['country']}
     return weather
 
 if __name__ == '__main__':
